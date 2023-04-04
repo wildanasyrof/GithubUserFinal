@@ -1,4 +1,4 @@
-package com.dicoding.githubuserfinal.ui.settings
+package com.dicoding.githubuserfinal.data.local.datastore
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -9,19 +9,20 @@ import kotlinx.coroutines.flow.map
 
 class SettingsPreferences private constructor(private val dataStore: DataStore<Preferences>) {
 
-    private val THEME_KEY = booleanPreferencesKey("theme_setting")
+    private val themeKey = booleanPreferencesKey("theme_setting")
 
     fun getThemeSetting(): Flow<Boolean> {
         return dataStore.data.map { preferences ->
-            preferences[THEME_KEY] ?: false
+            preferences[themeKey] ?: false
         }
     }
 
     suspend fun saveThemeSetting(isDarkModeActive: Boolean) {
         dataStore.edit { preferences ->
-            preferences[THEME_KEY] = isDarkModeActive
+            preferences[themeKey] = isDarkModeActive
         }
     }
+
 
     companion object {
         @Volatile

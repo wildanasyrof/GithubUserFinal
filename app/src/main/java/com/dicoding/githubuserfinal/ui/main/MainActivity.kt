@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -33,8 +34,19 @@ class MainActivity : AppCompatActivity() {
         val viewModels: MainViewModel by viewModels { factory }
         viewModel = viewModels
 
+        getTheme(viewModel)
         recyclerViewSetting()
         getSearchUser()
+    }
+
+    private fun getTheme(viewModel: MainViewModel) {
+        viewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+        }
     }
 
     private fun getSearchUser(username: String = "a") {

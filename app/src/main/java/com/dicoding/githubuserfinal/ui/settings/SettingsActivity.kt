@@ -2,8 +2,10 @@ package com.dicoding.githubuserfinal.ui.settings
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatDelegate
 import com.dicoding.githubuserfinal.databinding.ActivitySettingsBinding
+import com.dicoding.githubuserfinal.utils.ViewModelFactory
 
 class SettingsActivity : AppCompatActivity() {
 
@@ -14,14 +16,23 @@ class SettingsActivity : AppCompatActivity() {
         binding = ActivitySettingsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.switchTheme.setOnCheckedChangeListener { _, isChecked: Boolean ->
-            if (isChecked) {
+        val factory: ViewModelFactory = ViewModelFactory.getInstance(this)
+        val viewModel: SettingsViewModel by viewModels { factory }
+
+        val switchTheme = binding.switchTheme
+
+        viewModel.getThemeSettings().observe(this) { isDarkModeActive: Boolean ->
+            if (isDarkModeActive) {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                binding.switchTheme.isChecked
+                switchTheme.isChecked = true
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                binding.switchTheme.isChecked = false
+                switchTheme.isChecked = false
             }
+        }
+
+        binding.switchTheme.setOnCheckedChangeListener { _, isChecked: Boolean ->
+            viewModel.saveThemeSetting(isChecked)
         }
     }
 }
