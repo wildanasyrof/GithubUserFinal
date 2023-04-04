@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Github User</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="user_name">username</string>
+    <string name="main">Main</string>
+    <string name="favorite">Favorite</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Username</string>
+    <string name="profile_user">User Profile</string>
+    <string name="nama_user">Full Name</string>
+    <string name="followers">Followers</string>
+    <string name="following">Following</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="settings">Settings</string>
+</resources>
